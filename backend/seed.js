@@ -205,7 +205,7 @@ mongoose.connect(
             website: '',
             email: '',
             phone: '',
-            bio: 'Whatever produce you are looking for, we have it here. From locally grown vegetables to fresh eggs, this is the place to shop sustainably.,
+            bio: 'Whatever produce you are looking for, we have it here. From locally grown vegetables to fresh eggs, this is the place to shop sustainably.',
             image: 'https://i.imgur.com/mcQ5FSX.jpg',
             user: users[0]
           },
@@ -581,7 +581,7 @@ mongoose.connect(
                     latitude: resp.data.features[0].center[1]
                   }
                   console.log(location)
-                  resolve(location)            
+                  resolve(location)
                 })
             }, timeoutInterval)
           }))
@@ -591,16 +591,17 @@ mongoose.connect(
       .then((newData) => {
         newData.map(item => {
           globalArray.push(item)
-        })        
-        const rawYelpData = []        
+        })
+        const rawYelpData = []
         for (let i = 0; i < 17; i++) {
           const timeoutInterval = 1200 * (i + 1)
           const limit = 50
           rawYelpData.push(new Promise((resolve) => {
             setTimeout(() => {
               axios.get(`https://api.yelp.com/v3/businesses/search?location=UK&limit=${limit}&offset=${limit * i}&categories=vegan,farmersmarket,vegetarian,salad,bikerepair,bikeshop,organic_stores,ethicgrocery,bike_repair_maintenance,electronicsrepair,furniturerepair,shoerepair,evchargingstations,vintage,fleamarkets`,
-                { headers:
-                  { Authorization: `Bearer ${process.env.YelpKey}` }
+                {
+                  headers:
+                    { Authorization: `Bearer ${process.env.YelpKey}` }
                 })
                 .then(resp => {
                   resolve(resp.data.businesses)
@@ -614,12 +615,12 @@ mongoose.connect(
         // const mappedData = []
         rawYelpData.forEach(array => {
           array.map(item => {
-            const yelpCatArray = item.categories.map(cat => cat.alias)           
+            const yelpCatArray = item.categories.map(cat => cat.alias)
             const categoryAliasesArray = []
             categoriesArray.forEach(i => categoryAliasesArray.push(i.alias))
             const yelpAlias = categoryAliasesArray.filter(e => yelpCatArray.includes(e))[0]
             const catObj = categoriesArray.find(o => o.alias === yelpAlias)
-            const data = {          
+            const data = {
               category: [catObj['category']],
 
               // yelpCatArray.forEach(eachCat => {
@@ -633,9 +634,9 @@ mongoose.connect(
               // }),
 
               name: item.name,
-              address: (item.location.address1 ? item.location.address1 : '**Not provided**') + 
-              (item.location.address2 ? ', ' + item.location.address2 : '')
-               + (item.location.address3 ? ', ' + item.location.address3 : ''),
+              address: (item.location.address1 ? item.location.address1 : '**Not provided**') +
+                (item.location.address2 ? ', ' + item.location.address2 : '')
+                + (item.location.address3 ? ', ' + item.location.address3 : ''),
               city: (item.location.city ? item.location.city : '**Not provided**'),
               postcode: (item.location.zip_code ? item.location.zip_code : '**Not provided**'),
               longitude: item.coordinates.longitude,
@@ -643,7 +644,7 @@ mongoose.connect(
               website: item.url,
               phone: item.display_phone,
               image: item.image_url,
-              user: globalUsers[0]          
+              user: globalUsers[0]
             }
             globalArray.push(data)
           })

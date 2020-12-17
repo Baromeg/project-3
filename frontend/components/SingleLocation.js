@@ -399,7 +399,7 @@ const SingleLocation = (props) => {
           {/* POST comment */}
           <div className="media"></div>
 
-          {!location.comments.some(comment => {
+          {localStorage.getItem('token') && !location.comments.some(comment => {
             return comment.user._id === userId
           }) &&
             <div className="media">

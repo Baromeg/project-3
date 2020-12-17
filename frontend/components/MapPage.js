@@ -92,8 +92,8 @@ const MapPage = (props) => {
 
   return <div className="has-navbar-fixed-top">
     <MapGL
-      mapboxApiAccessToken={process.env.MapBoxKey}
-
+      mapboxApiAccessToken={'pk.eyJ1Ijoibmlja2hheWVzIiwiYSI6ImNrYmh2dW56NDA5ZnIyenB2MHJ4MGFnaWYifQ.IHXzZRvdxBtuH9Ro6nLKmQ'}
+      // mapboxApiAccessToken={process.env.MapBoxKey}
       {...viewPort}
       onViewportChange={(viewPort) => setViewPort(viewPort)}
     >

@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
-import Datepicker from 'react-datepicker'
+// import Datepicker from 'react-datepicker'
 import UploadImage from './UploadImage'
 
 
 const LocationForm = ({ handleSubmit, handleChange, formData,
   selectedCategories, setSelectedCategories, options,
-  setStartDate, setEndDate,
-  startDate, endDate, updateImage
+  // setStartDate, setEndDate,
+  // startDate, endDate,
+  updateImage
 }) => {
 
   const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid my-5">
     <form className='' onSubmit={handleSubmit}>
-
       <div className='field'>
         <label className='label'>Name*</label>
         <div className="control">
@@ -32,11 +32,6 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
       </div>
 
-      {/* <div className="field">
-        <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
-      </div> */}
-      {/* <FontAwesomeIcon icon={faEdit} className='label' />         */}
-      {/* {isVisible &&  */}
       <div className="is-multiple control">
         <Select
           closeMenuOnSelect={false}
@@ -87,7 +82,6 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
           />
         </div>
       </div>
-
       <div className='field'>
         <label className='label'>Phone</label>
         <div className="control">
@@ -132,13 +126,6 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
           <UploadImage
             updateImage={updateImage}
           />
-          {/* <input
-            className='input'
-            type="text"
-            onChange={handleChange}
-            value={formData['image']}
-            name='image'
-          /> */}
         </div>
       </div>
       <div className='field'>
@@ -155,7 +142,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
       </div>
 
 
-      {/* 
+      {/* The datepicker option was not implemented, although is fully functional.
       <label className='label'>Dates</label>
 
       <div className="tile is-ancestor is-centered">
@@ -197,20 +184,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
 
         </div>
       </div> */}
-      {/* {inputFields.map((field, i) => {
-      return <div className='field' key={i}>
-        <label className='label'>{field}</label>
-        <div className="control">
-          <input
-            className='input'
-            type="text"
-            onChange={handleChange}
-            value={formData[field]}
-            name={field}
-          />
-        </div>
-      </div>
-    })}       */}
+
       <button type='submit' className='button is-link'>Submit</button>
     </form>
   </div>

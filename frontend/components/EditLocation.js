@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import LocationForm from './LocationForm'
-import UploadImage from './UploadImage'
-
-// import { set } from 'mongoose'
-// import { ProgressPlugin } from 'webpack'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faEdit } from '@fortawesome/free-solid-svg-icons'
-// import Geocode from 'react-geocode'
-
 
 const EditLocation = (props) => {
+  // console.log(props)
 
-  console.log(props)
+  // * Identify the location accessed by the user
   const locationId = props.match.params.locationId
+
+  // * UseState to set the original location data
   const [formData, updateFormData] = useState({
     category: [],
     address: '',
     name: '',
     timings: '',
-    startDate: '',
-    endDate: '',
+    // startDate: '',
+    // endDate: '',
     city: '',
     postcode: '',
     longitude: '',
@@ -32,24 +27,7 @@ const EditLocation = (props) => {
     image: ''
   })
 
-
-  // const inputFields = [
-  //   'name',
-  //   'timings',
-  //   // 'startDate',
-  //   // 'endDate',
-  //   'address',
-  //   'city',
-  //   'postcode',
-  //   'longitude',
-  //   'latitude',
-  //   'website',
-  //   'email',
-  //   'phone',
-  //   'bio',
-  //   'image'
-  // ]
-
+  // * This variable defines the different categories in the select input
   const categoriesObject = [
     { value: 'Farmers Market', label: 'Farmers Market' },
     { value: 'Farm Shop', label: 'Farm Shop' },
@@ -61,12 +39,12 @@ const EditLocation = (props) => {
     { value: 'Cycling', label: 'Cycling' }
   ]
 
+  // * Fetch the original location data and filter the categories that the location has preselected
   useEffect(() => {
     Axios.get(`/api/locations/${locationId}`)
       .then(({ data }) => {
         const formData = {
           ...data,
-
           category: categoriesObject.filter(option => {
             return data.category.some(category => {
               return category === option.value
@@ -74,10 +52,11 @@ const EditLocation = (props) => {
           })
         }
         updateFormData(formData)
-        console.log(formData)
+        // console.log(formData)
       })
   }, [])
 
+  // * Adds the uploaded image to the data before submitting
   function updateImage(image) {
     const newForm = {
       ...formData,
@@ -86,6 +65,7 @@ const EditLocation = (props) => {
     updateFormData(newForm)
   }
 
+  //* Adds the new selected categories to the data before submitting
   function setSelectedCategories(categories) {
     const newData = {
       ...formData,
@@ -94,35 +74,33 @@ const EditLocation = (props) => {
     updateFormData(newData)
   }
 
+  // * This functionatilty would allow setting up date range in future releases
+  // const [startDate, setStartDate] = useState('')
+  // const [endDate, setEndDate] = useState('')
 
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
-  console.log(endDate)
-  console.log(startDate)
-
-
+  // * Function to catch the change in the form inputs
   function handleChange(event) {
     const data = {
       ...formData,
       [event.target.name]: event.target.value
     }
-    console.log(data)
+    // console.log(data)
     updateFormData(data)
   }
 
+  // * Function to summit the changes from the form inputs to the seeded data
   function handleSubmit(event) {
     event.preventDefault()
-    console.log(event)
+    // console.log(event)
     const token = localStorage.getItem('token')
     const newFormData = {
       ...formData,
-      startDate: startDate,
-      endDate: endDate,
+      // startDate: startDate,
+      // endDate: endDate,
       category: formData.category.map(selected => {
         return selected.value
       })
     }
-
     Axios.put(`/api/locations/${locationId}`, newFormData, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -131,7 +109,7 @@ const EditLocation = (props) => {
       })
   }
 
-
+  // * The form has been split into a separate component LocationFrom.js
   return <LocationForm
     handleSubmit={handleSubmit}
     // inputFields={inputFields}
@@ -139,10 +117,10 @@ const EditLocation = (props) => {
     updateImage={updateImage}
     selectedCategories={formData.category}
     setSelectedCategories={setSelectedCategories}
-    startDate={startDate}
-    endDate={endDate}
-    setStartDate={setStartDate}
-    setEndDate={setEndDate}
+    // startDate={startDate}
+    // endDate={endDate}
+    // setStartDate={setStartDate}
+    // setEndDate={setEndDate}
     options={categoriesObject}
     handleChange={handleChange}
   />

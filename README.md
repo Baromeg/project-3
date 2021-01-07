@@ -31,7 +31,7 @@ We chose to build a platform to help you live a greener life: ***GreenWorld***. 
 * Responsive design
 
 ### Wireframes
-![Wireframes](frontend/styles/readme_images/project-3-wireframes.png)
+![Wireframes](frontend/styles/project-3-wireframes.png)
 
 ### Technical Requirements:
 - Work in a team, using git to code collaboratively.

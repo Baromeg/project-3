@@ -1,14 +1,39 @@
+### ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) 
+
+### General Assembly, Software Engineering Immersive
+
 # Project-3 - Green World
 ## Overview
 
 My team created a JavaScript app that helps the user make greener decisions by discovering sustainable business and communities locally. 
 
-Using Express.js to serve our data from MongoDB, we were able to access our API using React in our front-end. Together, we all agreed on the functionality and wireframe of the app and collaborated to achieve the MVP. We made use of Git and GitHub for version control and Heroku platform for deployment. 
-
+This task involved working together to develop a Full Stack MERN application using the core technologies of - MongoDB, Express, React, and Node. 
 
 The app was built within 7 days by a team of 4 people, applying all the concepts learned on the first 3 modules of the course.  
 
-## Brief:
+
+Together, we all agreed on the functionality and wireframe of the app and collaborated to achieve the MVP. We made use of Git and GitHub for version control and Heroku platform for deployment. 
+
+Find it here! --> [Green World](https://greenworld-p3.herokuapp.com/)
+
+
+### Concept 
+We chose to build a platform to help you live a greener life: ***GreenWorld***. The idea was to enable users to **easily find local businesses and services that lower the carbon footprint** (Vegan/vegetarian restaurants, cycling shops, ethical groceries, EV charging stations, repair shops, charity shops etc.).
+
+### Key features:
+* A map with pins for all 'green' locations in the UK
+* "Use my location" button to capture browser location of user
+* List of all locations, with search by name and filter by categry
+* Pages for each location with location details, comments and ratings
+* User accounts and profiles
+* Ability for users to comment and rate locations
+* Ability for users to add and edit locations
+* Responsive design
+
+### Wireframes
+![Wireframes](frontend/styles/readme_images/project-3-wireframes.png)
+
+### Technical Requirements:
 - Work in a team, using git to code collaboratively.
 - Build a full-stack application by making your own backend and your own front-end
 - Use an Express API and a Mongo database
@@ -20,7 +45,7 @@ The app was built within 7 days by a team of 4 people, applying all the concepts
 Technologies Used:
 
 * HTML5
-* CSS
+* CSS / SASS
 * JavaScript (ES6)
 * Express.js
 * MongoDB – Mongoose
@@ -33,18 +58,12 @@ Technologies Used:
 * GitHub
 * Insomnia
 * Heroku
-* API’s
+* API’s ( [Yelp](https://www.yelp.com/developers/documentation/v3), [mapbox](https://docs.mapbox.com/api/))
 * Mapbox (React-MapGL)
+* Ziteboard
 
 ## Approach taken:
-The team’s project started with the idea of creating an application that would allow users to find nearby businesses and communities that are providing alternative solutions to today’s environmental challenges.
 
-We collaborated at the start of the project by whiteboarding ideas and wireframing the MVP expected, also what stretch goals could be added to the application. We also decided that the application will allow unregistered users to use all the core functionalities, like searching for locations their names, by their type of business category or by its proximity in the map, as well as accessing local businesses information pages. 
-Users could also register and access to more functionalities, like adding, editing and deleting reviews to business, accessing other users’ information, adding new locations, editing and deleting user’s own locations and editing user’s own information.
-
-Another relevant topic required for the application was to find a reliable source of data. We decided that we would use Yelp API’s that provided valuable information for businesses as well as manually producing some data to complement the Yelp API.
-
-### Functionality:
 
 ### - SingleLocation Page:
 
@@ -510,6 +529,78 @@ const UploadImage = (props) => {
   </div >
 }
 ```
+### - The Backend
+
+The backend contained a router file to handle the different requests from the frontend using functions imported from controller files. An example route from the router file:
+
+```js
+router.route('/locations/:locationId/comments/:commentId')
+  .get(locationController.getComment)
+  .put(secureRoute, locationController.updateComment)
+  .delete(secureRoute, locationController.deleteComment)
+```
+For this route, the request from the front end would contain the information required to specify a specific comment on a location in our database. Depending on the type of request (GET, PUT, or DELETE) a different fuction would be used. As an example, this is a function found in the controller file:
+
+```js
+function getAllComments(req, res) {
+  Locations
+    .find()
+    .then(locationList => {
+      const allComments = []
+      const user = req.params.userId
+      locationList.forEach(location => {
+        for (let i = 0; i < location.comments.length; i++) {
+          if (JSON.stringify(location.comments[i].user) === `"${user}"`) {
+            const commentObject = {
+              comment: location.comments[i],
+              location: location.name,
+              locationId: location._id
+
+            }
+
+            allComments.push(commentObject)
+          }
+        }
+      })
+      res.send(allComments)
+    })
+    .catch(error => res.send(error))
+}
+```
+This function is retrieving all of the locations in our database and running a for loop in each location. The for loop is going though the array of comments attached to the location and pushing any comment from the specified user into a new array (allComments). This array is then sent back in the response in order to return all of the comments a specific user has posted on the app.
+
+Some functions on the app requre the user be logged in before access is granted. For these functions secureRoute, a function imported from our middleware, would be added to the route:
+
+```js
+function secureRoute(req, res, next) {
+  const authToken = req.headers.authorization
+
+  if (!authToken || !authToken.startsWith('Bearer')) {
+    return res.status(401).send({ message: 'Unauthorized - There\'s no token or you\'re missing the word \'Bearer\'' })
+  }
+
+  const token = authToken.replace('Bearer ', '')
+
+  jwt.verify(token, secret, (err, payload) => {
+
+    if (err) return res.status(401).send({ message: 'Unauthorized - The token isn\'t valid' })
+
+    const userId = payload.sub
+    console.log(userId)
+    User
+      .findById(userId)
+      .then(user => {
+        if (!user) return res.status(401).send({ message: 'Unauthorized - User not found' })
+
+        req.currentUser = user
+
+        next()
+      })
+      .catch(() => res.status(401).send({ message: 'Unauthorized - Error related to user' }))
+  })
+}
+```
+This function ensures that the user is currently logged in to an account with valid token before performing the relevant functions and returning the repsonse, otherwise a 401 status with the message 'Unauthorized' would be returned instead.
 
 ## Screenshots
 
@@ -526,3 +617,9 @@ const UploadImage = (props) => {
 ## Lessons learned
 - Be realistic from the stage of imagining all the functionalities and features of your application to the actual implementation of the MVP. Focus on prioritising the most important features, as any extra functionality will be able to be introduce in due course.
 - Communication between team members is key for the success of the project, don't be afraid of asking for help when in doubt, as the team members might be also unaware and interested in knowing the solution.
+
+## Contributors
+- Baltasar Romero
+- Dec Burns
+- Florian Wilisch
+- James Bolton

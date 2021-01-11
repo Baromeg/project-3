@@ -619,7 +619,6 @@ This function ensures that the user is currently logged in to an account with va
 - Communication between team members is key for the success of the project, don't be afraid of asking for help when in doubt, as the team members might be also unaware and interested in knowing the solution.
 
 ## Contributors
-- Baltasar Romero
 - Dec Burns
 - Florian Wilisch
 - James Bolton

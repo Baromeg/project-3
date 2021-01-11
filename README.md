@@ -342,7 +342,7 @@ return comment.user._id === userId
 
 ### - EditLocation & LocationForm Page:
 
-![Editlocation Page](frontend/styles/editsinglelocaiton.png)
+![Editlocation Page](frontend/styles/editsinglelocation.png)
 
 I also implemented the EditLocation Page, which in essence, populates the original data of the location into the empty input fields of the form, so the user can decide what information has to be edited.
 

@@ -64,8 +64,9 @@ Technologies Used:
 
 ## Approach taken:
 
-
 ### - SingleLocation Page:
+
+![Singlelocation Page](frontend/styles/singlelocation.png)
 
 I took on the task of implementing the single page layout and its functionalities. 
 Page functionalities:

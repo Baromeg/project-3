@@ -342,6 +342,8 @@ return comment.user._id === userId
 
 ### - EditLocation & LocationForm Page:
 
+![Editlocation Page](frontend/styles/editsinglelocaiton.png)
+
 I also implemented the EditLocation Page, which in essence, populates the original data of the location into the empty input fields of the form, so the user can decide what information has to be edited.
 
 -   UseState to update the empty fields with the original and edited location data. As well as defined the different categories available in an object called categoriesObject.
@@ -476,6 +478,9 @@ FormLocation.js - E.g. React Select
 
 ### UploadImage.js (used in Register.js, EditUser.js & EditLocation.js)
 
+![Cloudinary - uploadimage](frontend/styles/cloudinary.png)
+
+
 I implemented React Cloudinary library by creating two components called CloudinaryService.js & UploadImage.js, to allow users to upload their avatars to their profile, as well as uploading images to the locations they created.
 
 The first component, CloudinaryService.js, has all the core settings to link the application to the Cloudinary account.
@@ -604,6 +609,8 @@ function secureRoute(req, res, next) {
 This function ensures that the user is currently logged in to an account with valid token before performing the relevant functions and returning the repsonse, otherwise a 401 status with the message 'Unauthorized' would be returned instead.
 
 ## Screenshots
+
+![Map Page](frontend/styles/mapfeature.png)
 
 ## Potential Future Features
 - Locations page could display business based on proximity to the user instead of alphabetical order.

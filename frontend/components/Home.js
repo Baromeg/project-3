@@ -1,16 +1,14 @@
-import React from 'react'
+import React from "react"
 // import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 // import bulma from 'bulma'
-import { usePosition } from 'use-position'
+import { usePosition } from "use-position"
 
 const Home = () => {
   const { latitude, longitude, error } = usePosition()
 
-
-
-  localStorage.setItem('lat', latitude)
-  localStorage.setItem('long', longitude)
+  localStorage.setItem("lat", latitude)
+  localStorage.setItem("long", longitude)
 
   return (
     <section className='hero is-fullheight-with-navbar'>
@@ -26,9 +24,12 @@ const Home = () => {
             Search your area for <strong>shops</strong> and{" "}
             <strong>services</strong> that will help you make the first steps.
           </p>
-          <Link className='button is-link mt-2' to='/map'>
-            Start Locally
-          </Link>
+          <div>
+            <Link className='button is-link mt-2' to='/map'>
+              Start Locally
+            </Link>
+          </div>
+
           <svg
             id='add8efa2-ea20-4a06-887e-6413c87b31a4'
             data-name='Layer 1'

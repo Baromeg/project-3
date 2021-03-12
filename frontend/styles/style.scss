@@ -27,8 +27,8 @@ $grey-light: $beige-light;
 $primary: $purple;
 $secondary: $brown;
 $link: $green;
-$widescreen-enabled: false;
-$fullhd-enabled: false;
+$widescreen-enabled: true;
+$fullhd-enabled: true;
 $navbar-breakpoint: 400px;
 // $desktop: 500px;
 
@@ -85,4 +85,21 @@ $react-rater-active: rgb(123, 251, 4) !default; // color of star rated
 .locationsImage {
   width: 400px;
   background-color: white;
+}
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+#popup {
+  display: block;
+  // flex-flow: column wrap;
+  // height: 150px;
+  // width: 250px;
+  // min-width: 400px;
+
+}
+.popup-image img {
+  height: 100px;
+  width: 200px;
+  object-fit: cover;
 }

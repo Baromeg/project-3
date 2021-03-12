@@ -75,68 +75,81 @@ const Locations = () => {
       {/*<div className="container">*/}
       <div className="notifications is-primary">
         {filterLocations().map((location, index) => {
-          return <div key={index} >
-            <Link to={`/locations/${location._id}`}>
-              <div className="tile is-parent px-0">
-                <div className="tile is-child box">
-
-                  <div className="columns">
-                    <div className="column">
-                      {/*<div className="">*/}
-                      {/*<div className="">*/}
-                      <p className="title is-4">{location.name}</p>
-                      {/*<p className="subtitle is-6" className="locationsTitle">{'Category: ' + location.category}</p>*/}
-                      <div className="tags">
-                        {location.category.map((category, index) => {
-                          return <div className="tag is-warning" key={index}>
-                            {category}
-                          </div>
-                        })}
+          return (
+            <div key={index}>
+              <Link to={`/locations/${location._id}`}>
+                <div className='tile is-parent px-0'>
+                  <div className='tile is-child box'>
+                    <div className='columns'>
+                      <div className='column'>
+                        {/*<div className="">*/}
+                        {/*<div className="">*/}
+                        <p className='title is-4'>{location.name}</p>
+                        {/*<p className="subtitle is-6" className="locationsTitle">{'Category: ' + location.category}</p>*/}
+                        <div className='tags'>
+                          {location.category.map((category, index) => {
+                            return (
+                              <div className='tag is-warning' key={index}>
+                                {category}
+                              </div>
+                            )
+                          })}
+                        </div>
+                        {/*<p className="subtitle is-6">{'Address: ' + location.address}</p>*/}
+                        <p className='subtitle is-6'>
+                          {"City: " + location.city}
+                        </p>
+                        {/*<p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>*/}
+                        {/*<p className="subtitle is-6">{'Timings: ' + location.timings}</p>*/}
+                        {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
+                        {location.bio && (
+                          <p className='subtitle is-6'>
+                            {"About: " + location.bio}
+                          </p>
+                        )}
                       </div>
-                      {/*<p className="subtitle is-6">{'Address: ' + location.address}</p>*/}
-                      <p className="subtitle is-6">{'City: ' + location.city}</p>
-                      {/*<p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>*/}
-                      {/*<p className="subtitle is-6">{'Timings: ' + location.timings}</p>*/}
-                      {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
-                      {location.bio && <p className="subtitle is-6">{'About: ' + location.bio}</p>}
+                      <div className='column has-text-centered'>
+                        {location.image && (
+                          <img
+                            className='locationsImage'
+                            src={location.image}
+                            alt={location.name}
+                          />
+                        )}
+                      </div>
                     </div>
-                    <div className="column">
-                      {location.image && <img className="locationsImage" src={location.image} alt={location.name} />}
-                    </div>
-
                   </div>
-                </div>
 
-
-                {/* <div className="tile is-child box"> */}
-                {/*<div className="">*/}
-                {/*<div className="">*/}
-                {/* <p className="title is-4">{location.name}</p> */}
-                {/*<p className="subtitle is-6" className="locationsTitle">{'Category: ' + location.category}</p>*/}
-                {/* <div className="tags">
+                  {/* <div className="tile is-child box"> */}
+                  {/*<div className="">*/}
+                  {/*<div className="">*/}
+                  {/* <p className="title is-4">{location.name}</p> */}
+                  {/*<p className="subtitle is-6" className="locationsTitle">{'Category: ' + location.category}</p>*/}
+                  {/* <div className="tags">
                     {location.category.map((category, index) => {
                       return <div className="tag is-warning" key={index}>
                         {category}
                       </div>
                     })}
                   </div> */}
-                {/*<p className="subtitle is-6">{'Address: ' + location.address}</p>*/}
-                {/* <p className="subtitle is-6">{'City: ' + location.city}</p> */}
-                {/*<p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>*/}
-                {/*<p className="subtitle is-6">{'Timings: ' + location.timings}</p>*/}
-                {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
-                {/* {location.bio && <p className="subtitle is-6">{'About: ' + location.bio}</p>}
+                  {/*<p className="subtitle is-6">{'Address: ' + location.address}</p>*/}
+                  {/* <p className="subtitle is-6">{'City: ' + location.city}</p> */}
+                  {/*<p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>*/}
+                  {/*<p className="subtitle is-6">{'Timings: ' + location.timings}</p>*/}
+                  {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
+                  {/* {location.bio && <p className="subtitle is-6">{'About: ' + location.bio}</p>}
                 </div> */}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*<div className="tile is-child box">*/}
-                {/*<figure className="image is-4by3">*/}
-                {/* {location.image && <img className="locationsImage" src={location.image} alt={location.name} />} */}
-                {/*</figure>*/}
-                {/*</div>*/}
-              </div>
-            </Link>
-          </div>
+                  {/*</div>*/}
+                  {/*</div>*/}
+                  {/*<div className="tile is-child box">*/}
+                  {/*<figure className="image is-4by3">*/}
+                  {/* {location.image && <img className="locationsImage" src={location.image} alt={location.name} />} */}
+                  {/*</figure>*/}
+                  {/*</div>*/}
+                </div>
+              </Link>
+            </div>
+          )
         })}
       </div>
       {/* </div> */}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
 
 import ReactMapGL, { Marker, Popup } from "react-map-gl"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { far, faEdit, faMapPin } from "@fortawesome/free-solid-svg-icons"
+import { faMapPin } from "@fortawesome/free-solid-svg-icons"
 import axios from "axios"
 
 import { Link } from "react-router-dom"
@@ -50,7 +51,7 @@ const MapPage = (props) => {
       ...viewPort,
       latitude: latitude,
       longitude: longitude,
-      zoom: 12,
+      zoom: 12
     }
     setViewPort(newViewport)
   }
@@ -96,7 +97,6 @@ const MapPage = (props) => {
         onViewportChange={(viewPort) => setViewPort(viewPort)}
         mapStyle='mapbox://styles/mapbox/streets-v11'
       >
-        {/* Mapping data from our API to display locations - NOT FINISHED!! */}
 
         {locationData.map((location) => {
           if (location.latitude) {
@@ -107,7 +107,6 @@ const MapPage = (props) => {
                 longitude={location.longitude}
               >
                 <Link
-                  // className='card is-warning'
                   to={`/locations/${location._id}`}
                 >
                   <span
@@ -115,48 +114,33 @@ const MapPage = (props) => {
                     aria-label="map-marker"
                     onMouseOver={() => setPopup(location)}
                     onMouseOut={() => setPopup(null)}
-                  > <FontAwesomeIcon color='green' icon={faMapPin} /> </span>
+                  >
+                    <FontAwesomeIcon style={{ color: "#056674" }}
+                      icon={faMapPin} />
+                  </span>
                 </Link>
               </Marker>
-
             )
           }
         })}
         {popup &&
-          // <Link
-          //   className='card is-warning'
-          //   to={`/locations/${popup._id}`}
-          // >
           <Popup
             scrollZoom={false}
             latitude={popup.latitude}
-            longitude={popup.longitude}
-          // closeButton={true}
-          // closeOnClick={true}
-          // className="card-popup"
+          longitude={popup.longitude}
           >
-            <div id="popup">
-              {/* <div className="card-content p-2">
-                <div className="media">
-                  <div className="media-left"> */}
-            {popup.image && <figure className="popup-image">
-              <img src={popup.image} alt={popup.name} width="150px" />
+          <div id="popup">
+              {popup.image && <figure className="popup-image">
+                <img src={popup.image} alt={popup.name} width="150px" />
             </figure>}
-
-            <div>
-              <p className="title is-size-6">{popup.name}</p>
-              <p className="subtitle is-size-7">{popup.category[0]}</p>
-              </div>
-
-
+              <div>
+                <p className="title is-size-6">{popup.name}</p>
+                <p className="subtitle is-size-7">{popup.category[0]}</p>
             </div>
-
-          </Popup>
-
-
-
-
+          </div>
+        </Popup>
         }
+
       </ReactMapGL>
       <nav className='navbar p-5 is-fixed-bottom'>
         <div className='navbar-start'>

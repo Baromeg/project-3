@@ -43,6 +43,7 @@
     "cloudinary-react": "^1.6.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "file-loader": "^6.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.11",
     "mongoose-hidden": "^1.9.0",

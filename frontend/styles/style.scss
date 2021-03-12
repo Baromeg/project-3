@@ -42,8 +42,7 @@ $navbar-breakpoint: 400px;
 
 //* Hero image background
 .hero-body {
-  background: linear-gradient(0deg, $purple, $grey-light),
-    url("https://lh3.googleusercontent.com/proxy/asL59o0YEPfPFNnbemEJkrOk32jxtybwLOKClIG-MSixsJwS90yRXQbpn4lTipTfvGgLTT74htOapanS9K_P_U4C");
+  background: linear-gradient(0deg, $purple, $grey-light);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

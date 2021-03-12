@@ -27,7 +27,7 @@ const Map = (props) => {
         longitude={props.location.longitude}
       >
         <div>
-          <FontAwesomeIcon color='green' icon={faMapPin} />
+          <FontAwesomeIcon style={{ color: "#056674" }} icon={faMapPin} />
           <span className='card'> {props.location.name} </span>
         </div>
       </Marker>

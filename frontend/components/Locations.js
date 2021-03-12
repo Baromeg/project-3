@@ -27,12 +27,14 @@ const Locations = () => {
   }
 
   function getCategories() {
-    const mappedCategories = locationData.map(location => location.category[0])
+    const mappedCategories = locationData.map(
+      (location) => location.category[0]
+    )
     const uniqueCategories = new Set(mappedCategories)
     const arrayLocations = Array.from(uniqueCategories)
-    console.log(mappedCategories)
-    console.log(uniqueCategories)
-    console.log(arrayLocations)
+    // console.log(mappedCategories)
+    // console.log(uniqueCategories)
+    // console.log(arrayLocations)
     return arrayLocations
   }
 

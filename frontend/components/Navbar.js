@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-
+import logo from "../styles/favicon1.png"
 const NavBar = (props) => {
   const [isActive, setisActive] = useState(false)
 
@@ -21,11 +21,7 @@ const NavBar = (props) => {
     <nav className='navbar is-fixed-top ' id='navbar'>
       <div className='navbar-brand'>
         <a className='navbar-item' href='/'>
-          <img
-            src='https://res.cloudinary.com/greenupload/image/upload/v1605802976/nfhqpiboxgntgyhikgiy.png'
-            alt='GreenWorld'
-            height='28'
-          />
+          <img src={logo} alt='GreenWorld' height='28' />
         </a>
         <a
           role='button'

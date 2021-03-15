@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 // The API is at '/api/locations'
 
 const Locations = () => {
   const [locationData, updateLocationData] = useState([])
-  const [locationFilter, updateLocationFilter] = useState("")
-  const [selectedCategory, updateSelectedCategory] = useState("")
+  const [locationFilter, updateLocationFilter] = useState('')
+  const [selectedCategory, updateSelectedCategory] = useState('')
 
   useEffect(() => {
-    axios.get("/api/locations").then((axiosResp) => {
+    axios.get('/api/locations').then((axiosResp) => {
       updateLocationData(axiosResp.data)
     })
   }, [])
@@ -21,7 +21,7 @@ const Locations = () => {
       const filterText = locationFilter.toLowerCase()
       return (
         name.includes(filterText) &&
-        (selectedCategory === "" || location.category[0] === selectedCategory)
+        (selectedCategory === '' || location.category[0] === selectedCategory)
       )
     })
     return filteredLocations

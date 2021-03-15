@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react'
 
-import ReactMapGL, { Marker, Popup } from "react-map-gl"
+import ReactMapGL, { Marker, Popup } from 'react-map-gl'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMapPin } from "@fortawesome/free-solid-svg-icons"
-import axios from "axios"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapPin } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
 
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 
-import { usePosition } from "use-position"
+import { usePosition } from 'use-position'
 
 const MapPage = (props) => {
-  const homeLat = Number(localStorage.getItem("lat"))
-  const homeLong = Number(localStorage.getItem("long"))
+  const homeLat = Number(localStorage.getItem('lat'))
+  const homeLong = Number(localStorage.getItem('long'))
   //  Data from our API
 
   const [locationData, updateLocationData] = useState([])
@@ -24,12 +24,12 @@ const MapPage = (props) => {
 
   // Capturing input from postcode search
 
-  const [searchText, updateSearchText] = useState("")
+  const [searchText, updateSearchText] = useState('')
 
   // Fetching data from our API to display locations on map
 
   useEffect(() => {
-    axios.get("/api/locations").then((axiosResp) => {
+    axios.get('/api/locations').then((axiosResp) => {
       updateLocationData(axiosResp.data)
     })
   }, [])
@@ -37,11 +37,11 @@ const MapPage = (props) => {
   //  Setting iniitial position of map on page load
 
   const [viewPort, setViewPort] = useState({
-    height: "100vh",
-    width: "100vw",
+    height: '100vh',
+    width: '100vw',
     zoom: homeLat ? 12 : 14,
     latitude: homeLat ? homeLat : 51.515,
-    longitude: homeLong ? homeLong : -0.078,
+    longitude: homeLong ? homeLong : -0.078
   })
 
   // Updating position of map based on browser location
@@ -68,7 +68,7 @@ const MapPage = (props) => {
         const postCodeViewPort = {
           ...viewPort,
           longitude: resp.data.features[0].center[0],
-          latitude: resp.data.features[0].center[1],
+          latitude: resp.data.features[0].center[1]
         }
         setViewPort(postCodeViewPort)
       })
@@ -97,7 +97,6 @@ const MapPage = (props) => {
         onViewportChange={(viewPort) => setViewPort(viewPort)}
         mapStyle='mapbox://styles/mapbox/streets-v11'
       >
-
         {locationData.map((location) => {
           if (location.latitude) {
             return (
@@ -106,41 +105,42 @@ const MapPage = (props) => {
                 latitude={location.latitude}
                 longitude={location.longitude}
               >
-                <Link
-                  to={`/locations/${location._id}`}
-                >
+                <Link to={`/locations/${location._id}`}>
                   <span
-                    role="img"
-                    aria-label="map-marker"
+                    role='img'
+                    aria-label='map-marker'
                     onMouseOver={() => setPopup(location)}
                     onMouseOut={() => setPopup(null)}
                   >
-                    <FontAwesomeIcon style={{ color: "#056674" }}
-                      icon={faMapPin} />
+                    <FontAwesomeIcon
+                      style={{ color: '#056674' }}
+                      icon={faMapPin}
+                    />
                   </span>
                 </Link>
               </Marker>
             )
           }
         })}
-        {popup &&
+        {popup && (
           <Popup
             scrollZoom={false}
             latitude={popup.latitude}
-          longitude={popup.longitude}
+            longitude={popup.longitude}
           >
-          <div id="popup">
-              {popup.image && <figure className="popup-image">
-                <img src={popup.image} alt={popup.name} width="150px" />
-            </figure>}
+            <div id='popup'>
+              {popup.image && (
+                <figure className='popup-image'>
+                  <img src={popup.image} alt={popup.name} width='150px' />
+                </figure>
+              )}
               <div>
-                <p className="title is-size-6">{popup.name}</p>
-                <p className="subtitle is-size-7">{popup.category[0]}</p>
+                <p className='title is-size-6'>{popup.name}</p>
+                <p className='subtitle is-size-7'>{popup.category[0]}</p>
+              </div>
             </div>
-          </div>
-        </Popup>
-        }
-
+          </Popup>
+        )}
       </ReactMapGL>
       <nav className='navbar p-5 is-fixed-bottom'>
         <div className='navbar-start'>

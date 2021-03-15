@@ -11,7 +11,6 @@ const dist = path.join(__dirname, 'dist')
 // For environment varibles
 // console.log(process.env.hello)
 
-
 mongoose.connect(
   dbURI,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
@@ -33,7 +32,7 @@ expressServer.use('/api', Router)
 
 expressServer.use('/', express.static(dist))
 
-expressServer.get('*', function(req, res) {
+expressServer.get('*', function (req, res) {
   res.sendFile(path.join(dist, 'index.html'))
 })
 

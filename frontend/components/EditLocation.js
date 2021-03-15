@@ -41,19 +41,18 @@ const EditLocation = (props) => {
 
   // * Fetch the original location data and filter the categories that the location has preselected
   useEffect(() => {
-    Axios.get(`/api/locations/${locationId}`)
-      .then(({ data }) => {
-        const formData = {
-          ...data,
-          category: categoriesObject.filter(option => {
-            return data.category.some(category => {
-              return category === option.value
-            })
+    Axios.get(`/api/locations/${locationId}`).then(({ data }) => {
+      const formData = {
+        ...data,
+        category: categoriesObject.filter((option) => {
+          return data.category.some((category) => {
+            return category === option.value
           })
-        }
-        updateFormData(formData)
-        // console.log(formData)
-      })
+        })
+      }
+      updateFormData(formData)
+      // console.log(formData)
+    })
   }, [])
 
   // * Adds the uploaded image to the data before submitting
@@ -97,33 +96,34 @@ const EditLocation = (props) => {
       ...formData,
       // startDate: startDate,
       // endDate: endDate,
-      category: formData.category.map(selected => {
+      category: formData.category.map((selected) => {
         return selected.value
       })
     }
     Axios.put(`/api/locations/${locationId}`, newFormData, {
       headers: { Authorization: `Bearer ${token}` }
+    }).then((resp) => {
+      props.history.push(`/locations/${locationId}`)
     })
-      .then(resp => {
-        props.history.push(`/locations/${locationId}`)
-      })
   }
 
   // * The form has been split into a separate component LocationFrom.js
-  return <LocationForm
-    handleSubmit={handleSubmit}
-    // inputFields={inputFields}
-    formData={formData}
-    updateImage={updateImage}
-    selectedCategories={formData.category}
-    setSelectedCategories={setSelectedCategories}
-    // startDate={startDate}
-    // endDate={endDate}
-    // setStartDate={setStartDate}
-    // setEndDate={setEndDate}
-    options={categoriesObject}
-    handleChange={handleChange}
-  />
+  return (
+    <LocationForm
+      handleSubmit={handleSubmit}
+      // inputFields={inputFields}
+      formData={formData}
+      updateImage={updateImage}
+      selectedCategories={formData.category}
+      setSelectedCategories={setSelectedCategories}
+      // startDate={startDate}
+      // endDate={endDate}
+      // setStartDate={setStartDate}
+      // setEndDate={setEndDate}
+      options={categoriesObject}
+      handleChange={handleChange}
+    />
+  )
 }
 
 export default EditLocation

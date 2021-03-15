@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMapPin } from "@fortawesome/free-solid-svg-icons"
-import ReactMapGL, { Marker } from "react-map-gl"
-import "../../node_modules/mapbox-gl/dist/mapbox-gl.css"
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMapPin } from '@fortawesome/free-solid-svg-icons'
+import ReactMapGL, { Marker } from 'react-map-gl'
+import '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
 const Map = (props) => {
   console.log(props)
 
   const [viewPort, setViewPort] = useState({
-    height: "250px",
-    width: "52rem",
+    height: '250px',
+    width: '52rem',
     zoom: 15,
     latitude: props.location.latitude,
     longitude: props.location.longitude
@@ -27,7 +27,7 @@ const Map = (props) => {
         longitude={props.location.longitude}
       >
         <div>
-          <FontAwesomeIcon style={{ color: "#056674" }} icon={faMapPin} />
+          <FontAwesomeIcon style={{ color: '#056674' }} icon={faMapPin} />
           <span className='card'> {props.location.name} </span>
         </div>
       </Marker>

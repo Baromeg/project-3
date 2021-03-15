@@ -4,7 +4,6 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import UploadImage from './UploadImage'
 
-
 import Axios from 'axios'
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
@@ -12,9 +11,7 @@ import Axios from 'axios'
 // import { faEdit } from '@fortawesome/free-solid-svg-icons'
 // import Geocode from 'react-geocode'
 
-
 const AddLocation = (props) => {
-
   const [formData, updateFormData] = useState({
     category: [],
     address: '',
@@ -88,7 +85,7 @@ const AddLocation = (props) => {
 
   useEffect(() => {
     // Map catergories to only keep the value property
-    const categoryArray = selectedCategories.map(one => {
+    const categoryArray = selectedCategories.map((one) => {
       return one.value
     })
     const data = {
@@ -133,10 +130,10 @@ const AddLocation = (props) => {
       }
       return updateErrors(newErrors)
     }
-    Axios
-      .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
-      .then(resp => {
-
+    Axios.get(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`
+    )
+      .then((resp) => {
         const data = {
           ...formData,
           longitude: resp.data.features[0].center[0],
@@ -148,22 +145,17 @@ const AddLocation = (props) => {
 
         return Axios.post('/api/locations', data, {
           headers: { Authorization: `Bearer ${token}` }
+        }).then((resp) => {
+          console.log(resp.data.errors)
+          if (resp.data.errors) {
+            updateErrors(resp.data.errors)
+          } else {
+            props.history.push('/locations')
+          }
+          console.log(errors)
         })
-          .then((resp) => {
-            console.log(resp.data.errors)
-            if (resp.data.errors) {
-
-              updateErrors(resp.data.errors)
-
-            } else {
-              props.history.push('/locations')
-            }
-            console.log(errors)
-          })
-
       })
-      .catch(error => {
-
+      .catch((error) => {
         console.log(error.response)
         updatePostcodeError(error.response)
       })
@@ -171,167 +163,170 @@ const AddLocation = (props) => {
 
   // const [isVisible, setIsVisible] = useState(false)
 
-
-
-
-  return <div className="container is-fluid my-5">
-    <form className="" onSubmit={handleSubmit}>
-      <div className="field">
-        <label className="label">Name*</label>
-        <div className="control">
-          <input
-            className='input'
-            type="text"
-            onChange={handleChange}
-            value={formData[name]}
-            name="name"
-          />
-          {(errors.name) && <p className="help" style={{ color: 'red' }}>
-            {'There was a problem with the Name'}
-          </p>}
+  return (
+    <div className='container is-fluid my-5'>
+      <form className='' onSubmit={handleSubmit}>
+        <div className='field'>
+          <label className='label'>Name*</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData[name]}
+              name='name'
+            />
+            {errors.name && (
+              <p className='help' style={{ color: 'red' }}>
+                {'There was a problem with the Name'}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
 
-
-
-      <div className="field">
-        <label className="label"
-        // onClick={() => setIsVisible(!isVisible)}
-        >Category*</label>
-      </div>
-      {/* {isVisible &&  */}
-      <div className="control">
-        <Select
-          closeMenuOnSelect={false}
-          components={makeAnimated()}
-          autoFocus
-          options={categories}
-          isMulti
-          onChange={setSelectedCategories}
-          isSearchable
-          placeholder="Select the category available"
-          className="basic-multi-select"
-
-        />
-        {(errors.category) && <p className="help" style={{ color: 'red' }}>
-          {'There was a problem with the Categories'}
-        </p>}
-      </div>
-      {/* } */}
-      <div className="field mt-3">
-        <label className="label">Address*</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['address']}
-            name="address"
-            placeholder="Street and Number"
-          />
+        <div className='field'>
+          <label
+            className='label'
+            // onClick={() => setIsVisible(!isVisible)}
+          >
+            Category*
+          </label>
         </div>
-        {(errors.address) && <p className="help" style={{ color: 'red' }}>
-          {'There was a problem with the Address'}
-        </p>}
-        <div className="control mt-1">
-          <input
-            label="postcode"
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['postcode']}
-            name="postcode"
-            placeholder="Postcode"
+        {/* {isVisible &&  */}
+        <div className='control'>
+          <Select
+            closeMenuOnSelect={false}
+            components={makeAnimated()}
+            autoFocus
+            options={categories}
+            isMulti
+            onChange={setSelectedCategories}
+            isSearchable
+            placeholder='Select the category available'
+            className='basic-multi-select'
           />
-          {(postcodeError || errors.postcode) && <p className="help" style={{ color: 'red' }}>
-            {'There was a problem with the Poscode'}
-          </p>}
+          {errors.category && (
+            <p className='help' style={{ color: 'red' }}>
+              {'There was a problem with the Categories'}
+            </p>
+          )}
         </div>
-        <div className="control mt-1">
-          <input
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['city']}
-            name="city"
-            placeholder="City"
-          />
-          {(errors.city) && <p className="help" style={{ color: 'red' }}>
-            {'There was a problem with the City'}
-          </p>}
+        {/* } */}
+        <div className='field mt-3'>
+          <label className='label'>Address*</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['address']}
+              name='address'
+              placeholder='Street and Number'
+            />
+          </div>
+          {errors.address && (
+            <p className='help' style={{ color: 'red' }}>
+              {'There was a problem with the Address'}
+            </p>
+          )}
+          <div className='control mt-1'>
+            <input
+              label='postcode'
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['postcode']}
+              name='postcode'
+              placeholder='Postcode'
+            />
+            {(postcodeError || errors.postcode) && (
+              <p className='help' style={{ color: 'red' }}>
+                {'There was a problem with the Poscode'}
+              </p>
+            )}
+          </div>
+          <div className='control mt-1'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['city']}
+              name='city'
+              placeholder='City'
+            />
+            {errors.city && (
+              <p className='help' style={{ color: 'red' }}>
+                {'There was a problem with the City'}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label className="label">Phone</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['phone']}
-            name="phone"
-          />
+        <div className='field'>
+          <label className='label'>Phone</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['phone']}
+              name='phone'
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label className="label">Email</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['email']}
-            name="email"
-          />
+        <div className='field'>
+          <label className='label'>Email</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['email']}
+              name='email'
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="field">
-        <label className="label">Website</label>
-        <div className="control">
-          <input
-            className="input"
-            type="text"
-            onChange={handleChange}
-            value={formData['website']}
-            name="website"
-          />
+        <div className='field'>
+          <label className='label'>Website</label>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              onChange={handleChange}
+              value={formData['website']}
+              name='website'
+            />
+          </div>
         </div>
-      </div>
-      <div className="field">
-        <label className="label">Photo</label>
-        <div className="control">
-          <UploadImage
-            updateImage={updateImage}
-          />
-          {/* <input
+        <div className='field'>
+          <label className='label'>Photo</label>
+          <div className='control'>
+            <UploadImage updateImage={updateImage} />
+            {/* <input
             className="input"
             type="text"
             onChange={handleChange}
             value={formData['image']}
             name="image"
           /> */}
+          </div>
         </div>
-      </div>
-      <div className="field">
-        <label className="label">Description</label>
-        <div className="control">
-          <textarea
-            className="textarea"
-            type="text"
-            onChange={handleChange}
-            value={formData['bio']}
-            name="bio"
-          />
+        <div className='field'>
+          <label className='label'>Description</label>
+          <div className='control'>
+            <textarea
+              className='textarea'
+              type='text'
+              onChange={handleChange}
+              value={formData['bio']}
+              name='bio'
+            />
+          </div>
         </div>
-      </div>
 
-
-
-
-      {/* <div className="field">
+        {/* <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
           <Datepicker
@@ -357,9 +352,10 @@ const AddLocation = (props) => {
         </div>
       </div> */}
 
-      <button className="button is-link">Submit</button>
-    </form >
-  </div >
+        <button className='button is-link'>Submit</button>
+      </form>
+    </div>
+  )
 }
 
 export default AddLocation

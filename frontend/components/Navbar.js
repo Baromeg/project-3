@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import logo from "../styles/favicon1.png"
+import logo from '../styles/favicon1.png'
 const NavBar = (props) => {
   const [isActive, setisActive] = useState(false)
 
@@ -25,7 +25,7 @@ const NavBar = (props) => {
         </a>
         <a
           role='button'
-          className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+          className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
           aria-label='menu'
           aria-expanded='false'
           data-target='navbar-menu'
@@ -38,7 +38,7 @@ const NavBar = (props) => {
       </div>
 
       <div
-        className={`navbar-menu ${isActive ? "is-active" : ""}`}
+        className={`navbar-menu ${isActive ? 'is-active' : ''}`}
         id='navbar-menu'
       >
         <div className='navbar-start'>
@@ -54,30 +54,30 @@ const NavBar = (props) => {
         </div>
         <div className='navbar-end'>
           <div className='navbar-item'>
-            {!localStorage.getItem("token") && (
+            {!localStorage.getItem('token') && (
               <Link className='button is-light' to='/register'>
                 Register
               </Link>
             )}
-            {!localStorage.getItem("token") && (
+            {!localStorage.getItem('token') && (
               <Link to='/login' className='button is-link'>
                 Login
               </Link>
             )}
-            {localStorage.getItem("token") && (
+            {localStorage.getItem('token') && (
               <p>
-                Welcome back{" "}
+                Welcome back{' '}
                 <Link className='is-capitalized' to={`/users/${userId}`}>
                   <strong className='is-link'>{userName}</strong>
                 </Link>
               </p>
             )}
-            {localStorage.getItem("token") && (
+            {localStorage.getItem('token') && (
               <Link to='/locations/new-location' className='button is-link'>
                 Add Location
               </Link>
             )}
-            {localStorage.getItem("token") && (
+            {localStorage.getItem('token') && (
               <button className='button' onClick={handleLogout}>
                 Logout
               </button>
@@ -90,5 +90,3 @@ const NavBar = (props) => {
 }
 
 export default withRouter(NavBar)
-
-

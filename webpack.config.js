@@ -2,10 +2,10 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DotEnv = require('dotenv-webpack')
-const env = process.env.NODE_ENV === 'production' ? (
-  new webpack.EnvironmentPlugin({ ...process.env })
-) : (new DotEnv())
-
+const env =
+  process.env.NODE_ENV === 'production'
+    ? new webpack.EnvironmentPlugin({ ...process.env })
+    : new DotEnv()
 
 module.exports = () => {
   return {
@@ -20,7 +20,10 @@ module.exports = () => {
       rules: [
         { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ },
         { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-        { test: /\.s(a|c)ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+        {
+          test: /\.s(a|c)ss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader']
+        },
         { test: /\.(png|jpe?g|gif)$/i, use: 'file-loader' }
       ]
     },

@@ -2,7 +2,7 @@ const path = require('path')
 const dist = path.join(__dirname, 'dist')
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import "mapbox-gl/dist/mapbox-gl.css"
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 import Home from './components/Home'
 import SingleLocation from './components/SingleLocation'
@@ -18,10 +18,7 @@ import User from './components/User'
 
 import './styles/style.scss'
 
-
-
 const App = () => (
-
   <BrowserRouter>
     <Navbar />
     <Switch>
@@ -32,9 +29,17 @@ const App = () => (
       <Route exact path='/login' component={Login} />
       <Route exact path='/locations/new-location' component={AddLocation} />
       <Route exact path='/users/:userId' component={User} />
-      <Route exact path='/locations/edit-location/:locationId' component={EditLocation} />
+      <Route
+        exact
+        path='/locations/edit-location/:locationId'
+        component={EditLocation}
+      />
       <Route exact path='/locations/:locationId' component={SingleLocation} />
-      <Route exact path='/locations/edit-comment/:locationId/:commentId' component={EditComment} />
+      <Route
+        exact
+        path='/locations/edit-comment/:locationId/:commentId'
+        component={EditComment}
+      />
     </Switch>
   </BrowserRouter>
 

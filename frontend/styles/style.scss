@@ -27,6 +27,9 @@ $grey-light: $beige-light;
 $primary: $purple;
 $secondary: $brown;
 $link: $green;
+// $text: $green;
+$text-light: $green;
+$text-strong: $green;
 $widescreen-enabled: true;
 $fullhd-enabled: true;
 $navbar-breakpoint: 400px;
@@ -41,7 +44,7 @@ $navbar-breakpoint: 400px;
 }
 
 //* Hero image background
-.hero-body {
+.hero-body{
   background: linear-gradient(0deg, $purple, $grey-light);
   background-size: cover;
   background-position: center;
@@ -68,7 +71,10 @@ $react-rater-active: rgb(123, 251, 4) !default; // color of star rated
   border-radius: 3px;
   color: white;
 }
-
+.homepage-image{
+  width: auto;
+  max-width: 700px;
+}
 .locationsSearchBar {
   width: 98%;
   height: 30px;

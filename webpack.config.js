@@ -15,6 +15,7 @@ module.exports = () => {
       path: path.resolve('./backend/dist'),
       publicPath: '/'
     },
+    // target: 'web',
     devtool: 'source-map',
     module: {
       rules: [
@@ -44,6 +45,9 @@ module.exports = () => {
     plugins: [
       new DotEnv(),
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.ProvidePlugin({
+        React: 'react'
+      }),
       new HtmlWebpackPlugin({
         template: 'frontend/index.html',
         filename: 'index.html',

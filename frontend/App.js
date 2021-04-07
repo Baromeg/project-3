@@ -45,5 +45,7 @@ const App = () => (
 
   // return <button className="button is-primary" >Hello friends</button>
 )
-
+if (module.hot){
+  module.hot.accept()
+}
 export default App

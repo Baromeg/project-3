@@ -3,7 +3,6 @@ const expressServer = express()
 const { port, dbURI } = require('./config/environment')
 require('dotenv').config()
 const Router = require('./router')
-const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const path = require('path')
 const dist = path.join(__dirname, 'dist')
@@ -26,7 +25,7 @@ expressServer.use((req, res, next) => {
   next()
 })
 
-expressServer.use(bodyParser.json())
+expressServer.use(express.json())
 
 expressServer.use('/api', Router)
 
